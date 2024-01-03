@@ -1,5 +1,5 @@
 #!/usr/bin/python3
 
-# Print the ASCII alphabet in reverse order, alternating lowercase
-print("{}".format(''.join(chr(i) if i % 2 != 0 else chr(i - 32)
-                         for i in range(122, 96, -1))), end='')
+# Print ASCII alphabet in reverse, alternating lowercase and uppercase
+print("{}".format(''.join(chr(i) if i % 2 != 0 else chr(i - 32) 
+                          for i in range(122, 96, -1))), end='')

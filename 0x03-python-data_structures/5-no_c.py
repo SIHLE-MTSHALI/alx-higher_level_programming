@@ -5,8 +5,4 @@ def no_c(my_string):
     Removes all characters 'c' and 'C' from a string.
     Returns the new string.
     """
-    new_string = ""
-    for char in my_string:
-        if char != 'c' and char != 'C':
-            new_string += char
-    return new_string
+    return ''.join(char for char in my_string if char not in ['c', 'C'])

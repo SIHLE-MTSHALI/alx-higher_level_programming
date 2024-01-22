@@ -1,4 +1,4 @@
-#include <Python.h>
+nclude <Python.h>
 #include <object.h>
 #include <listobject.h>
 #include <bytesobject.h>
@@ -10,23 +10,20 @@
  */
 void print_python_list(PyObject *p)
 {
-    Py_ssize_t size, alloc, i;
-    PyObject *item;
+    Py_ssize_t size, i;
+    const char *type;
 
     printf("[*] Python list info\n");
-    if (!PyList_Check(p)) {
+    if (strcmp(p->ob_type->tp_name, "list") != 0) {
         printf("  [ERROR] Invalid List Object\n");
         return;
     }
 
     size = PyList_Size(p);
-    alloc = ((PyListObject *)p)->allocated;
-    printf("[*] Size of the Python List = %zd\n", size);
-    printf("[*] Allocated = %zd\n", alloc);
-
+    printf("[*] Size of the Python List = %ld\n", size);
     for (i = 0; i < size; i++) {
-        item = PyList_GetItem(p, i);
-        printf("Element %zd: %s\n", i, item->ob_type->tp_name);
+        type = PyList_GetItem(p, i)->ob_type->tp_name;
+        printf("Element %ld: %s\n", i, type);
     }
 }
 
@@ -36,21 +33,20 @@ void print_python_list(PyObject *p)
  */
 void print_python_bytes(PyObject *p)
 {
+    Py_ssize_t size, i;
     char *string;
-    long int size, i;
 
     printf("[.] bytes object info\n");
-    if (!PyBytes_Check(p)) {
+    if (strcmp(p->ob_type->tp_name, "bytes") != 0) {
         printf("  [ERROR] Invalid Bytes Object\n");
         return;
     }
 
     size = PyBytes_Size(p);
     string = PyBytes_AsString(p);
-    printf("  size: %ld\n", size);
+    printf("  size: %zd\n", size);
     printf("  trying string: %s\n", string);
-    printf("  first %ld bytes:", size < 10 ? size + 1 : 10);
-
+    printf("  first %zd bytes:", size < 10 ? size : 10);
     for (i = 0; i < size && i < 10; i++) {
         printf(" %02x", string[i] & 0xff);
     }
@@ -66,7 +62,7 @@ void print_python_float(PyObject *p)
     double value;
 
     printf("[.] float object info\n");
-    if (!PyFloat_Check(p)) {
+    if (strcmp(p->ob_type->tp_name, "float") != 0) {
         printf("  [ERROR] Invalid Float Object\n");
         return;
     }

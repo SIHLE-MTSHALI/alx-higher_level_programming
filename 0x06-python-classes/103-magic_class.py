@@ -4,7 +4,8 @@ import math
 
 class MagicClass:
     """
-    A class that mimics the given Python bytecode operations.
+    Class that defines a circle with methods to calculate its area and
+    circumference.
     """
 
     def __init__(self, radius=0):
@@ -12,10 +13,10 @@ class MagicClass:
         Initialize the MagicClass with a radius.
 
         Args:
-        radius (float or int): The radius of the circle.
+        radius (int or float): The radius of the circle.
 
         Raises:
-        TypeError: If radius is not a number (int or float).
+        TypeError: If radius is not an int or float.
         """
         if type(radius) is not int and type(radius) is not float:
             raise TypeError("radius must be a number")

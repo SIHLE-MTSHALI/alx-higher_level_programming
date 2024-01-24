@@ -1,8 +1,9 @@
 #!/usr/bin/python3
 """
 Module 102-square
-Defines a class Square with size property, area method, and comparison operators.
+Defines a class Square with size property, area method comparison operators.
 """
+
 
 class Square:
     """

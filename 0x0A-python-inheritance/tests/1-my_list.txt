@@ -1,32 +1,13 @@
-Test Cases for the MyList class
-
-1. Test Case: Empty List
-- Description: Test printing an empty MyList instance.
-- Input: my_list = MyList()
-- Expected Output: []
-
-2. Test Case: Single Element List
-- Description: Test a MyList instance with a single element.
-- Input: my_list = MyList(); my_list.append(1)
-- Expected Output: [1]
-
-3. Test Case: Multiple Elements in Ascending Order
-- Description: Test a MyList instance with multiple elements already in ascending order.
-- Input: my_list = MyList(); [my_list.append(x) for x in [1, 2, 3, 4, 5]]
-- Expected Output: [1, 2, 3, 4, 5]
-
-4. Test Case: Multiple Elements in Descending Order
-- Description: Test a MyList instance with multiple elements in descending order.
-- Input: my_list = MyList(); [my_list.append(x) for x in [5, 4, 3, 2, 1]]
-- Expected Output: [1, 2, 3, 4, 5]
-
-5. Test Case: Multiple Elements Unsorted
-- Description: Test a MyList instance with multiple elements in no specific order.
-- Input: my_list = MyList(); [my_list.append(x) for x in [3, 1, 4, 5, 2]]
-- Expected Output: [1, 2, 3, 4, 5]
-
-6. Test Case: Duplicates
-- Description: Test a MyList instance with duplicate elements.
-- Input: my_list = MyList(); [my_list.append(x) for x in [3, 1, 3, 2, 2]]
-- Expected Output: [1, 2, 2, 3, 3]
-
+>>> from 1-my_list import MyList
+>>> my_list = MyList()
+>>> my_list.append(1)
+>>> my_list.append(4)
+>>> my_list.append(2)
+>>> my_list.append(3)
+>>> my_list.append(5)
+>>> print(my_list)
+[1, 4, 2, 3, 5]
+>>> my_list.print_sorted()
+[1, 2, 3, 4, 5]
+>>> print(my_list)
+[1, 4, 2, 3, 5]

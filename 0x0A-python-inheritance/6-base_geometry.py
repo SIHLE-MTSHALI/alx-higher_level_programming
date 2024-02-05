@@ -8,8 +8,7 @@ method named area.
 class BaseGeometry:
     """
     A class BaseGeometry with public instance method area.
-    """
-    
+    """  
     def area(self):
         """
         Raises an Exception with the message area() is not implemented.

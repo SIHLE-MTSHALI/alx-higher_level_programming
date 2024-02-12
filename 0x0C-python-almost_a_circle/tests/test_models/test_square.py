@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 import unittest
 from models.square import Square
 
@@ -17,6 +18,17 @@ class TestSquare(unittest.TestCase):
         """Test the __str__ method for Square."""
         s = Square(3, 1, 3, 10)
         self.assertEqual(str(s), "[Square] (10) 1/3 - 3")
+
+    def test_size(self):
+        """Test size getter and setter."""
+        s = Square(10)
+        self.assertEqual(s.size, 10)
+        s.size = 20
+        self.assertEqual(s.size, 20)
+        with self.assertRaises(TypeError):
+            s.size = "size"
+        with self.assertRaises(ValueError):
+            s.size = -10
 
 if __name__ == "__main__":
     unittest.main()

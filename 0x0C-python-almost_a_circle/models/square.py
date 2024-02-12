@@ -1,10 +1,10 @@
 #!/usr/bin/python3
-""" Module for Square class. """
+"""Module for Square class."""
 from .rectangle import Rectangle
 
 
 class Square(Rectangle):
-    """ Represents a square. """
+    """Represents a square."""
 
     def __init__(self, size, x=0, y=0, id=None):
         """Initialize a new Square."""
@@ -12,15 +12,23 @@ class Square(Rectangle):
 
     @property
     def size(self):
-        """Get the size of the Square."""
         return self.width
 
     @size.setter
     def size(self, value):
-        """Set the size of the Square."""
         self.width = value
         self.height = value
 
+    def update(self, *args, **kwargs):
+        """Update the Square attributes."""
+        attrs = ['id', 'size', 'x', 'y']
+        if args and len(args) > 0:
+            for attr, value in zip(attrs, args):
+                setattr(self, attr, value)
+        elif kwargs:
+            for key, value in kwargs.items():
+                if hasattr(self, key):
+                    setattr(self, key, value)
+
     def __str__(self):
-        """Return the string representation of the Square."""
         return f"[Square] ({self.id}) {self.x}/{self.y} - {self.width}"

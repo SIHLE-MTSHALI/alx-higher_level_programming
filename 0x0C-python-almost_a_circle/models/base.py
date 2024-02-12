@@ -6,7 +6,7 @@ This class will serve as the base for all other classes in this project.
 import json
 import os
 import csv
-
+import turtle
 
 class Base:
     """Represent the base model."""
@@ -104,3 +104,35 @@ class Base:
             instance = cls.create(**row)
             list_of_instances.append(instance)
         return list_of_instances
+
+    @staticmethod
+    def draw(list_rectangles, list_squares):
+        """Draw Rectangles and Squares using the Turtle module."""
+        turtle.bgcolor("lightblue")
+        turtle.speed(1)  # Set drawing speed
+
+        for rect in list_rectangles:
+            turtle.penup()
+            turtle.goto(rect.x, rect.y)
+            turtle.pendown()
+            turtle.color("black", "orange")
+            turtle.begin_fill()
+            for _ in range(2):
+                turtle.forward(rect.width)
+                turtle.right(90)
+                turtle.forward(rect.height)
+                turtle.right(90)
+            turtle.end_fill()
+
+        for sq in list_squares:
+            turtle.penup()
+            turtle.goto(sq.x, sq.y)
+            turtle.pendown()
+            turtle.color("black", "green")
+            turtle.begin_fill()
+            for _ in range(4):
+                turtle.forward(sq.size)
+                turtle.right(90)
+            turtle.end_fill()
+
+        turtle.done()

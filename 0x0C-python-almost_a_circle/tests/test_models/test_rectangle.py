@@ -6,10 +6,14 @@ import io
 from contextlib import redirect_stdout
 import unittest
 from models.rectangle import Rectangle
-
+from models.base import Base
 
 class TestRectangle(unittest.TestCase):
     """Define tests for the Rectangle class."""
+
+
+    def setUp(self):
+        Base._Base__nb_objects = 0
 
     def test_width_height_type_validation(self):
         """Test that width and height must be integers."""
@@ -60,9 +64,16 @@ class TestRectangle(unittest.TestCase):
         """Test the __str__ method of the Rectangle class."""
         r1 = Rectangle(4, 6, 2, 1, 12)
         self.assertEqual(str(r1), "[Rectangle] (12) 2/1 - 4/6")
-        r2 = Rectangle(5, 5, 1)
-        expected_id = 8
-        self.assertEqual(str(r2), f"[Rectangle] ({expected_id}) 1/0 - 5/5")
+        r2 = Rectangle(5, 5, 1, 0, 8)
+        self.assertEqual(str(r2), "[Rectangle] (8) 1/0 - 5/5")
+
+    def test_display_with_xy(self):
+        """Test the display method with x and y offsets."""
+        r1 = Rectangle(2, 3, 2, 2)
+        expected_output = "\n\n  ##\n  ##\n  ##\n"
+        with io.StringIO() as buf, redirect_stdout(buf):
+            r1.display()
+            self.assertEqual(buf.getvalue(), expected_output)
 
 if __name__ == '__main__':
     unittest.main()

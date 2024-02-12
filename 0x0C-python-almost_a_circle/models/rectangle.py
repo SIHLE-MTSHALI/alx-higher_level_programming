@@ -77,3 +77,9 @@ class Rectangle(Base):
         """Return the print() and str() representation of the Rectangle."""
         return ("[Rectangle] ({}) {}/{} - {}/{}"
                 .format(self.id, self.x, self.y, self.width, self.height))
+
+    def display(self):
+        """Print the Rectangle instance with '#' taking care of x and y."""
+        print("\n" * self.y, end="")
+        for row in range(self.height):
+            print(" " * self.x + "#" * self.width)

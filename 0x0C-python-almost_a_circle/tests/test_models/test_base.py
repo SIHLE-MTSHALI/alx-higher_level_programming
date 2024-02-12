@@ -4,6 +4,9 @@ Unit tests for the Base class.
 """
 import unittest
 from models.base import Base
+from models.rectangle import Rectangle
+import os
+
 
 class TestBase(unittest.TestCase):
     """Define tests for the Base class."""
@@ -34,6 +37,7 @@ class TestBase(unittest.TestCase):
         base6 = Base(-10)
         self.assertEqual(base6.id, -10)
 
+
 class TestBaseToJsonString(unittest.TestCase):
     """Test cases for the to_json_string method of the Base class."""
 
@@ -50,6 +54,17 @@ class TestBaseToJsonString(unittest.TestCase):
     def test_to_json_string_none(self):
         """Test JSON string representation with None."""
         self.assertEqual(Base.to_json_string(None), '[]')
+
+
+class TestBaseSaveToFile(unittest.TestCase):
+    """Test cases for the save_to_file method of the Base class."""
+
+    def test_save_to_file(self):
+        """Test saving a list of Rectangle objects to a file."""
+        r1 = Rectangle(10, 7, 2, 8)
+        r2 = Rectangle(2, 4)
+        Rectangle.save_to_file([r1, r2])
+        self.assertTrue(os.path.exists('Rectangle.json'))
 
 if __name__ == '__main__':
     unittest.main()

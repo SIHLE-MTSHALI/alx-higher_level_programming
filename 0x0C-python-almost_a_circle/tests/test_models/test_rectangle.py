@@ -75,5 +75,15 @@ class TestRectangle(unittest.TestCase):
             r1.display()
             self.assertEqual(buf.getvalue(), expected_output)
 
+    def test_update(self):
+        """Test updating Rectangle attributes using *args."""
+        r = Rectangle(10, 10, 10, 10)
+        r.update(89, 2, 3, 4, 5)
+        self.assertEqual(r.id, 89)
+        self.assertEqual(r.width, 2)
+        self.assertEqual(r.height, 3)
+        self.assertEqual(r.x, 4)
+        self.assertEqual(r.y, 5)
+
 if __name__ == '__main__':
     unittest.main()

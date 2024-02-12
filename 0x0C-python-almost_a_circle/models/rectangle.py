@@ -83,3 +83,9 @@ class Rectangle(Base):
         print("\n" * self.y, end="")
         for row in range(self.height):
             print(" " * self.x + "#" * self.width)
+
+    def update(self, *args):
+        """Update the Rectangle attributes."""
+        attrs = ['id', 'width', 'height', 'x', 'y']
+        for attr, value in zip(attrs, args):
+            setattr(self, attr, value)

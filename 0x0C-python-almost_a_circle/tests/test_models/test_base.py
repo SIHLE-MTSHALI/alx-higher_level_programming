@@ -66,5 +66,22 @@ class TestBaseSaveToFile(unittest.TestCase):
         Rectangle.save_to_file([r1, r2])
         self.assertTrue(os.path.exists('Rectangle.json'))
 
+
+class TestBaseFromJsonString(unittest.TestCase):
+    """Test cases for the from_json_string method of the Base class."""
+
+    def test_from_json_string(self):
+        """Test converting JSON string to list."""
+        json_str = '[{"id": 1, "width": 10, "height": 7, "x": 2, "y": 8}]'
+        self.assertEqual(Base.from_json_string(json_str), [{"id": 1, "width": 10, "height": 7, "x": 2, "y": 8}])
+
+    def test_from_json_string_empty(self):
+        """Test with empty string."""
+        self.assertEqual(Base.from_json_string(""), [])
+
+    def test_from_json_string_none(self):
+        """Test with None."""
+        self.assertEqual(Base.from_json_string(None), [])
+
 if __name__ == '__main__':
     unittest.main()

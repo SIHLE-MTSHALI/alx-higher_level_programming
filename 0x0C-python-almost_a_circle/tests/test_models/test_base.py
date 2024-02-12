@@ -101,5 +101,47 @@ class TestBaseCreate(unittest.TestCase):
         self.assertEqual([s.size, s.x, s.y], [4, 1, 2])
 
 
+class TestBaseLoadFromFile(unittest.TestCase):
+    """Test cases for the load_from_file method of the Base class."""
+
+    @classmethod
+    def setUpClass(cls):
+        cls.cleanup()
+
+    @classmethod
+    def tearDownClass(cls):
+        cls.cleanup()
+
+    @staticmethod
+    def cleanup():
+        """Remove files if they exist."""
+        if os.path.exists("Rectangle.json"):
+            os.remove("Rectangle.json")
+        if os.path.exists("Square.json"):
+            os.remove("Square.json")
+
+    def test_load_from_file_no_file(self):
+        """Test loading when no file exists."""
+        self.assertEqual(Rectangle.load_from_file(), [])
+        self.assertEqual(Square.load_from_file(), [])
+
+    def test_load_from_file_with_file(self):
+        """Test loading from a file that exists."""
+        r1 = Rectangle(10, 7, 2, 8)
+        r2 = Rectangle(2, 4)
+        Rectangle.save_to_file([r1, r2])
+        rectangles = Rectangle.load_from_file()
+        self.assertTrue(len(rectangles) == 2)
+        self.assertIsInstance(rectangles[0], Rectangle)
+        self.assertIsInstance(rectangles[1], Rectangle)
+
+        s1 = Square(5)
+        s2 = Square(7, 9, 1)
+        Square.save_to_file([s1, s2])
+        squares = Square.load_from_file()
+        self.assertTrue(len(squares) == 2)
+        self.assertIsInstance(squares[0], Square)
+        self.assertIsInstance(squares[1], Square)
+
 if __name__ == '__main__':
     unittest.main()

@@ -5,6 +5,7 @@ This class will serve as the base for all other classes in this project.
 """
 import json
 import os
+import csv
 
 
 class Base:
@@ -68,3 +69,38 @@ class Base:
         with open(filename, "r") as f:
             list_dicts = cls.from_json_string(f.read())
         return [cls.create(**d) for d in list_dicts]
+
+    @classmethod
+    def save_to_file_csv(cls, list_objs):
+        """Serializes in CSV format."""
+        filename = cls.__name__ + ".csv"
+        with open(filename, 'w', newline='') as csvfile:
+            if cls.__name__ == "Rectangle":
+                fieldnames = ['id', 'width', 'height', 'x', 'y']
+            elif cls.__name__ == "Square":
+                fieldnames = ['id', 'size', 'x', 'y']
+            writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+            for obj in list_objs:
+                writer.writerow(obj.to_dictionary())
+
+    @classmethod
+    def load_from_file_csv(cls):
+        """Deserializes from CSV format."""
+        filename = cls.__name__ + ".csv"
+        if not os.path.exists(filename):
+            return []
+        with open(filename, 'r', newline='') as csvfile:
+            if cls.__name__ == "Rectangle":
+                fieldnames = ['id', 'width', 'height', 'x', 'y']
+            elif cls.__name__ == "Square":
+                fieldnames = ['id', 'size', 'x', 'y']
+            reader = csv.DictReader(csvfile, fieldnames=fieldnames)
+            list_of_instances = []
+            for row in reader:
+                # Convert string dictionary values to integer for numeric fields
+                for key in row:
+                    if key != 'id':  # Assuming 'id' does not need conversion
+                        row[key] = int(row[key])
+            instance = cls.create(**row)
+            list_of_instances.append(instance)
+        return list_of_instances

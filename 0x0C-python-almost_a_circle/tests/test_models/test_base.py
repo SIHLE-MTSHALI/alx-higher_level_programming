@@ -34,5 +34,22 @@ class TestBase(unittest.TestCase):
         base6 = Base(-10)
         self.assertEqual(base6.id, -10)
 
+class TestBaseToJsonString(unittest.TestCase):
+    """Test cases for the to_json_string method of the Base class."""
+
+    def test_to_json_string(self):
+        """Test JSON string representation of dictionaries."""
+        dict_list = [{'id': 1, 'width': 10, 'height': 7, 'x': 2, 'y': 8}]
+        json_str = Base.to_json_string(dict_list)
+        self.assertEqual(json_str, '[{"id": 1, "width": 10, "height": 7, "x": 2, "y": 8}]')
+
+    def test_to_json_string_empty(self):
+        """Test JSON string representation with an empty list."""
+        self.assertEqual(Base.to_json_string([]), '[]')
+
+    def test_to_json_string_none(self):
+        """Test JSON string representation with None."""
+        self.assertEqual(Base.to_json_string(None), '[]')
+
 if __name__ == '__main__':
     unittest.main()

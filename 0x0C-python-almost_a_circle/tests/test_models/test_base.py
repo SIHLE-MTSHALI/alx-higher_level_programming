@@ -5,6 +5,7 @@ Unit tests for the Base class.
 import unittest
 from models.base import Base
 from models.rectangle import Rectangle
+from models.square import Square
 import os
 
 
@@ -82,6 +83,23 @@ class TestBaseFromJsonString(unittest.TestCase):
     def test_from_json_string_none(self):
         """Test with None."""
         self.assertEqual(Base.from_json_string(None), [])
+
+
+class TestBaseCreate(unittest.TestCase):
+    """Test cases for the create method of the Base class."""
+
+    def test_create_rectangle(self):
+        """Test creating a Rectangle from dictionary."""
+        r_dict = {'width': 3, 'height': 5, 'x': 1, 'y': 2}
+        r = Rectangle.create(**r_dict)
+        self.assertEqual([r.width, r.height, r.x, r.y], [3, 5, 1, 2])
+
+    def test_create_square(self):
+        """Test creating a Square from dictionary."""
+        s_dict = {'size': 4, 'x': 1, 'y': 2}
+        s = Square.create(**s_dict)
+        self.assertEqual([s.size, s.x, s.y], [4, 1, 2])
+
 
 if __name__ == '__main__':
     unittest.main()

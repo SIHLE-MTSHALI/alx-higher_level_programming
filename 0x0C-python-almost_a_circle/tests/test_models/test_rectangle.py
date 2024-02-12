@@ -56,5 +56,13 @@ class TestRectangle(unittest.TestCase):
             r1.display()
             self.assertEqual(buf.getvalue(), expected_output)
 
+    def test_str_method(self):
+        """Test the __str__ method of the Rectangle class."""
+        r1 = Rectangle(4, 6, 2, 1, 12)
+        self.assertEqual(str(r1), "[Rectangle] (12) 2/1 - 4/6")
+        r2 = Rectangle(5, 5, 1)
+        expected_id = 8
+        self.assertEqual(str(r2), f"[Rectangle] ({expected_id}) 1/0 - 5/5")
+
 if __name__ == '__main__':
     unittest.main()

@@ -2,6 +2,8 @@
 """
 Unit tests for the Rectangle class.
 """
+import io
+from contextlib import redirect_stdout
 import unittest
 from models.rectangle import Rectangle
 
@@ -36,6 +38,23 @@ class TestRectangle(unittest.TestCase):
             Rectangle(10, 2, -1, 0)
         with self.assertRaisesRegex(ValueError, "y must be >= 0"):
             Rectangle(10, 2, 0, -1)
+    
+    def test_area(self):
+        """Test the area calculation of the rectangle."""
+        r1 = Rectangle(3, 2)
+        self.assertEqual(r1.area(), 6)
+        r2 = Rectangle(2, 10)
+        self.assertEqual(r2.area(), 20)
+        r3 = Rectangle(8, 7, 0, 0, 12)
+        self.assertEqual(r3.area(), 56)
+   
+    def test_display(self):
+        """Test the display method."""
+        r1 = Rectangle(4, 6)
+        expected_output = "####\n" * 6
+        with io.StringIO() as buf, redirect_stdout(buf):
+            r1.display()
+            self.assertEqual(buf.getvalue(), expected_output)
 
 if __name__ == '__main__':
     unittest.main()

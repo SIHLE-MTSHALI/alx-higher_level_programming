@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """
-Script that lists all State objects that contain the letter 'a' from the database.
+Script that lists all State objects that contain the letter 'a' database.
 """
 import sys
 from sqlalchemy import create_engine

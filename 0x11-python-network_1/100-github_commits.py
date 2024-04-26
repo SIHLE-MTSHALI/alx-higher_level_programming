@@ -1,36 +1,43 @@
 #!/usr/bin/python3
+"""
+Script that lists 10 commits (from the most recent to oldest)
+of the repository "rails" by the user "rails"
 
+Usage: ./100-github_commits.py <repository_name> <owner_name>
+"""
 import requests
 import sys
 
-def fetch_latest_commits(repo_name, owner_name):
-    """
-    Retrieves the last 10 commits from a specified GitHub repository and displays 
-    them in the format `<sha>: <author name>`.
-
-    Parameters:
-    - repo_name (str): The name of the GitHub repository.
-    - owner_name (str): The owner of the GitHub repository.
-    """
-    # Define the target URL for retrieving commits
-    url = f"https://api.github.com/repos/{owner_name}/{repo_name}/commits"
-
-    # Send a GET request to fetch the commits
-    response = requests.get(url)
-
-    # Get the JSON content from the response
-    json_response = response.json()
-
-    # Display the last 10 commits with their SHA and author names
-    for commit in json_response[:10]:
-        sha = commit["sha"]
-        author_name = commit["commit"]["author"]["name"]
-        print(f"{sha}: {author_name}")
 
 if __name__ == "__main__":
-    # Read the repository name and owner name from the command-line arguments
+    # Check if the correct number of arguments is provided
+    if len(sys.argv) != 3:
+        print("Usage: ./100-github_commits.py <repository_name> <owner_name>")
+        sys.exit(1)
+
+    # Get the repository name and owner name from command-line arguments
     repo_name = sys.argv[1]
     owner_name = sys.argv[2]
 
-    # Fetch and display the last 10 commits from the specified repository
-    fetch_latest_commits(repo_name, owner_name)
+    # Construct the GitHub API URL
+    url = 'https://api.github.com/repos/{}/{}/commits'.format(
+        owner_name, repo_name)
+
+    # Send a GET request to the GitHub API
+    r = requests.get(url)
+
+    # Parse the JSON response
+    commits = r.json()
+
+    try:
+        # Iterate over the first 10 commits (or fewer if available)
+        for i in range(10):
+            # Get the SHA and author name of the commit
+            sha = commits[i].get('sha')
+            author_name = commits[i].get('commit').get('author').get('name')
+
+            # Print the commit information in the required format
+            print('{}: {}'.format(sha, author_name))
+    except IndexError:
+        # Handle the case when there are fewer than 10 commits
+        pass

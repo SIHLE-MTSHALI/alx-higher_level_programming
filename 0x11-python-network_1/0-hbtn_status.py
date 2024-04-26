@@ -1,12 +1,17 @@
 #!/usr/bin/python3
-"""Script that fetches https://alx-intranet.hbtn.io/status"""
+"""
+Fetches the status of a given URL and displays various attributes of
+the response body, including its type, raw content, and utf-8 decoded
+content.
+"""
+
 import urllib.request
 
+url = 'https://alx-intranet.hbtn.io/status'
 
-if __name__ == "__main__":
-    with urllib.request.urlopen('https://alx-intranet.hbtn.io/status') as r:
-        content = r.read()
-        print("Body response:")
-        print("\t- type: {}".format(type(content)))
-        print("\t- content: {}".format(content))
-        print("\t- utf8 content: {}".format(content.decode('utf-8')))
+with urllib.request.urlopen(url) as response:
+    content = response.read()
+    print("Body response:")
+    print("\t- type:", type(content))
+    print("\t- content:", content)
+    print("\t- utf8 content:", content.decode('utf-8'))

@@ -1,14 +1,10 @@
 #!/usr/bin/python3
-"""
-Sends a GET request to a specified URL and retrieves the `X-Request-Id`
-header value from the response. The URL is passed as a command-line
-argument.
-"""
-
+"""Script that takes in a URL, sends a request and displays
+the value of the X-Request-Id variable found in the header"""
 import urllib.request
 import sys
 
-url = sys.argv[1]
 
-with urllib.request.urlopen(url) as response:
-    print(response.info().get('X-Request-Id'))
+if __name__ == "__main__":
+    with urllib.request.urlopen(sys.argv[1]) as r:
+        print(r.headers.get('X-Request-Id'))

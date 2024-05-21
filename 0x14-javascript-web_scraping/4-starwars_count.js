@@ -1,20 +1,28 @@
 #!/usr/bin/node
+
 const request = require('request');
-const API_URL = process.argv[2];
 
-request(API_URL, (error, response, body) => {
-    if (error) {
-        console.log(error);
-    } else {
-        const films = JSON.parse(body).results;
-        const wedgeAntillesId = 18; 
+if (process.argv.length <= 2) {
+  console.log('Usage: ./4-starwars_count.js <API_URL>');
+  process.exit(1);
+}
 
-        const count = films.reduce((total, film) => {
-            return film.characters.includes(`https://swapi-api.alx-tools.com/api/people/${wedgeAntillesId}/`) 
-                ? total + 1 
-                : total;
-        }, 0);
+const apiUrl = process.argv[2];
 
-        console.log(count);
+request.get(apiUrl, (err, response, body) => {
+  if (err) {
+    console.error(err);
+    return;
+  }
+  const movies = JSON.parse(body).results;
+  let count = 0;
+  for (const movie of movies) {
+    for (const characterUrl of movie.characters) {
+      if (characterUrl.endsWith('/18/')) {
+        count++;
+        break;
+      }
     }
+  }
+  console.log(count);
 });
